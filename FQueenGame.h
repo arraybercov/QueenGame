@@ -8,7 +8,8 @@ A guessing game based on Mastermind */
 using FString = std::string;
 using int32 = int;
 
-struct FQueerStr8Count {
+struct FQueerStr8Count 
+{
 	int32 Queers = 0;
 	int32 Str8s = 0;
 };
@@ -19,30 +20,49 @@ enum class EGuessStatus
 	OK,
 	Not_Isogram,
 	Wrong_Length,
-	Not_Lowercase
+	Not_Lowercase,
 };
 
-class FQueenGame {
-public:
-	FQueenGame(); // constructor
+enum class EWordLengthChoiceStatus
+{
+	Invalid_Status,
+	OK,
+	Not_Numerical, // new for choosing word length
+	Invalid_Range // new for choosing word length
+};
 
-	// getters
-	int32 GetMaxTries() const;
-	int32 GetCurrentTry() const;
-	int32 GetHiddenWorthLength() const;
 
-	bool IsGameWon() const;
-	EGuessStatus CheckGuessValidity(FString) const;
+// Class definition
+class FQueenGame 
+{
+	public:
+		FQueenGame(); // constructor
 
-	void Reset();
-	FQueerStr8Count SubmitValidGuess(FString);
+		// getters
+		int32 GetMaxTries() const;
+		int32 GetCurrentTry() const;
+		int32 GetHiddenWorthLength() const;
 
-private:
-	// see constructor for initialization
-	int32 MyCurrentTry;
-	FString MyHiddenWord;
-	bool bGameIsWon;
+		EWordLengthChoiceStatus CheckWordLengthValidity(int32);
+	void InitializeHiddenWord(int32);
 
-	bool IsIsogram(FString) const;
-	bool IsLowerCase(FString) const;
+		bool IsGameWon() const;
+		EGuessStatus CheckGuessValidity(FString) const;
+
+		void Reset();
+		FQueerStr8Count SubmitValidGuess(FString);
+
+	private:
+		// see constructor for initialization
+		bool IsNumber(int32);
+		bool IsValidLength(int32);
+
+		int32 MyCurrentTry;
+		FString MyHiddenWord;
+		bool bGameIsWon;
+
+		bool IsIsogram(FString) const;
+		bool IsLowerCase(FString) const;
+
+
 };

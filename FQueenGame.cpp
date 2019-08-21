@@ -9,9 +9,18 @@ using int32 = int;
 FQueenGame::FQueenGame() { Reset(); } // default constructor
 
 // getters
-int32 FQueenGame::GetCurrentTry() const { return MyCurrentTry; }
-int32 FQueenGame::GetHiddenWorthLength() const { return MyHiddenWord.length(); }
-bool FQueenGame::IsGameWon() const { return bGameIsWon; }
+int32 FQueenGame::GetCurrentTry() const 
+{ 
+	return MyCurrentTry; 
+}
+int32 FQueenGame::GetHiddenWorthLength() const 
+{ 
+	return MyHiddenWord.length(); 
+}
+bool FQueenGame::IsGameWon() const 
+{ 
+	return bGameIsWon; 
+}
 
 int32 FQueenGame::GetMaxTries() const 
 { 
@@ -21,14 +30,36 @@ int32 FQueenGame::GetMaxTries() const
 
 void FQueenGame::Reset()
 {
-	const FString HIDDEN_WORD = "planet"; // this must be an isogram
+	const FString HIDDEN_WORD = MyHiddenWord;
 
-	MyHiddenWord = HIDDEN_WORD;
+	//MyHiddenWord = HIDDEN_WORD;
 	
 	MyCurrentTry = 1;
 	bGameIsWon = false;
 
 	return;
+}
+
+//EWordLengthStatus FQueenGame::CheckWordLengthValidity(int32 WordLength)
+//{
+//	if (!IsNumber(WordLength))
+//	{
+//		return EWordLengthStatus::Not_Numerical;
+//	}
+//	else if (!IsValidLength(WordLength))
+//	{
+//		return EWordLengthStatus::Invalid_Range;
+//	}
+//	else
+//	{
+//		return EWordLengthStatus::OK;
+//	}
+//}
+
+void FQueenGame::InitializeHiddenWord(int32 WordLength)
+{
+		TMap<int32, FString> HiddenWords{ {3,"man"}, {4,"camp"}, {5,"radio"}, {6,"pacify"}, {7,"bashful"} };
+		MyHiddenWord = HiddenWords[WordLength];
 }
 
 EGuessStatus FQueenGame::CheckGuessValidity(FString Guess) const
@@ -89,6 +120,24 @@ FQueerStr8Count FQueenGame::SubmitValidGuess(FString Guess)
 		bGameIsWon = false;
 	}
 	return QueerStr8Count;
+}
+
+bool FQueenGame::IsNumber(int32 Number)
+{
+	if (Number = 5) { return true; }
+	else
+	{
+		return false;
+	}
+}
+
+bool FQueenGame::IsValidLength(int32 Number)
+{
+	if (Number = 5) { return true; }
+	else
+	{
+		return false;
+	}
 }
 
 bool FQueenGame::IsIsogram(FString Word) const
